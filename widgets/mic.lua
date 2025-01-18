@@ -10,7 +10,7 @@ local icon_widget = wibox.widget {
         id = "icon",
         widget = wibox.widget.imagebox,
         resize = false,
-        image = HOME .. "/.local/share/icons/Arc/devices/symbolic/audio-input-microphone-symbolic.svg",
+        image = HOME .. "/.nix-profile/share/icons/Arc/devices/symbolic/audio-input-microphone-symbolic.svg",
     },
     valign = 'center',
     layout = wibox.container.place,
