@@ -26,9 +26,8 @@ run sxhkd
 run ibus-daemon -drxR
 run unclutter --timeout 1 --start-hidden --ignore-scrolling
 
-#run_flatpak com.nextcloud.desktopclient.nextcloud
-
-#run slack
+run slack
+run nextcloud
 
 xmodmap ~/.Xmodmap
 
