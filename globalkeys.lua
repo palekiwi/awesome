@@ -120,7 +120,7 @@ local globalkeys = gears.table.join(
     { description = "last client", group = "tag" }),
 
   -- Restore client from a different tag
-  awful.key({ MODKEY, "Control" }, "u",
+  awful.key({ MODKEY }, "e",
     function()
       ---if Urgent then
       ---  Urgent:jump_to()
