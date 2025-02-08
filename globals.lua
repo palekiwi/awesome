@@ -1,6 +1,5 @@
 -- Global Variables
 local awful = require("awful")
-local lain = require("lain")
 
 THEME_PATH = string.format("%s/.config/awesome/theme.lua", os.getenv("HOME"))
 
@@ -45,9 +44,6 @@ TAG_PROPS = {}
 
 Urgent = nil
 
-LAYOUT_CENTER = lain.layout.centerwork
-LAYOUT_CENTER_NAME = "centerwork"
-
 --LAYOUT_TILE = awful.layout.suit.tile.left
 --LAYOUT_TILE_NAME = "tileleft"
 LAYOUT_TILE = awful.layout.suit.tile
@@ -66,7 +62,6 @@ DEFAULT_SPLIT = LAYOUT_BOTTOM
 DEFAULT_SPLIT_NAME = LAYOUT_BOTTOM_NAME
 
 awful.layout.layouts = {
-  LAYOUT_CENTER,
   LAYOUT_MAX,
   LAYOUT_FULL,
   LAYOUT_TILE,

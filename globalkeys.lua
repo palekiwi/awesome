@@ -66,7 +66,7 @@ end
 
 local function toggle_layout()
   if awful.layout.getname() == LAYOUT_TILE_NAME then
-    awful.layout.set(LAYOUT_CENTER)
+    awful.layout.set(LAYOUT_MAX)
   else
     awful.layout.set(LAYOUT_BOTTOM)
   end
