@@ -141,23 +141,23 @@ return {
         master_width_factor = 0.5,
       },
       {
+        name = zh[13],
+        key = "v",
+        layout = LAYOUT_MAX,
+        master_width_factor = 0.5,
+      },
+    },
+    [2] = {
+      {
         name = zh[6],
         key = "d",
         layout = LAYOUT_MAX,
         master_fill_policy = "expand",
         master_width_factor = 0.5,
       },
-    },
-    [2] = {
       {
         name = zh[11],
         key = "b",
-        layout = LAYOUT_MAX,
-        master_width_factor = 0.5,
-      },
-      {
-        name = zh[13],
-        key = "v",
         layout = LAYOUT_MAX,
         master_width_factor = 0.5,
       },
