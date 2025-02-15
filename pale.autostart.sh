@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function run {
   if ! pgrep $1;
@@ -23,13 +23,12 @@ function run_app {
 
 run picom -b --config $HOME/.config/picom/picom.conf
 run sxhkd
-# run ibus-daemon -drxR
+run ibus-daemon -drxR
 run unclutter --timeout 1 --start-hidden --ignore-scrolling
 
-run_flatpak com.nextcloud.desktopclient.nextcloud
-
 run slack
+run nextcloud
 
-xmodmap ~/.xmodmap
+xmodmap ~/.Xmodmap
 
 run xscreensaver -no-splash
