@@ -122,7 +122,7 @@ return {
         gap_single_client = true,
         layout = LAYOUT_MAX,
         master_fill_policy = "expand",
-        master_width_factor = 0.75,
+        master_width_factor = 0.5,
         selected = true,
         gap = 0
       },
