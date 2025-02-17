@@ -98,9 +98,9 @@ local globalkeys = gears.table.join(
 --     { description = "focus primary screen", group = "screen" }),
 
 -- Focus screen 2
-  awful.key({ MODKEY, "Control" }, "Return",
-    function() awful.screen.focus(2) end,
-    { description = "focus secondary screen", group = "screen" }),
+  -- awful.key({ MODKEY, "Control" }, "Return",
+  --   function() awful.screen.focus(2) end,
+  --   { description = "focus secondary screen", group = "screen" }),
 
   -- Restore last client within current tag
   awful.key({ MODKEY }, "u",
