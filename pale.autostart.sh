@@ -7,6 +7,7 @@ function run {
   fi
 }
 
+run sxhkd
 run ibus-daemon -drxR
 
 run slack
