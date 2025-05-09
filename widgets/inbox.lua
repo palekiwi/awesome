@@ -5,26 +5,44 @@ local inbox = {}
 
 
 function inbox.create()
-  local fg_color = "#000000"
-  local bg_color = "#ffbd7a"
-  local radius = 4
+  local HOME = os.getenv("HOME")
 
-  local text = "13"
+  local fg_color = "#1d1d1f"
+  local bg_color = "#ffbd7a"
+  local radius = 2
+
+  local text = "3"
+  local icon_path = HOME .. "/.nix-profile/share/icons/Arc/status/symbolic/mail-unread-symbolic.svg"
 
   local text_widget = wibox.widget {
     markup = '<span weight="bold" foreground="' .. fg_color .. '">' .. text .. '</span>',
     widget = wibox.widget.textbox
   }
 
-  local padded_text = wibox.widget {
-    text_widget,
-    left = 8,
-    right = 8,
+  local icon_widget = wibox.widget {
+    image = gears.color.recolor_image(icon_path, fg_color),
+    resize = true,
+    widget = wibox.widget.imagebox
+  }
+
+  local content = wibox.widget {
+    layout = wibox.layout.fixed.horizontal,
+    spacing = 4,
+    icon_widget,
+    text_widget
+  }
+
+  local padded_widget = wibox.widget {
+    content,
+    left = 6,
+    right = 6,
+    top = 1,
+    bottom = 1,
     widget = wibox.container.margin
   }
 
   local inbox_widget = wibox.widget {
-    padded_text,
+    padded_widget,
     bg = bg_color,
     shape = function(cr, width, height)
       gears.shape.rounded_rect(cr, width, height, radius)
@@ -34,8 +52,8 @@ function inbox.create()
 
   return wibox.widget {
     inbox_widget,
-    left = 4,
-    right = 4,
+    left = 3,
+    right = 3,
     top = 3,
     bottom = 3,
     widget = wibox.container.margin
