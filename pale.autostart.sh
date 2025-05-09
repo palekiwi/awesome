@@ -8,7 +8,6 @@ function run {
 }
 
 run sxhkd
-run ibus-daemon -drxR
 
 run slack
 run nextcloud
