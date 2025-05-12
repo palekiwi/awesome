@@ -19,7 +19,7 @@ local inbox = {}
 
 local default_colors = {
   fg_active   = "#1d1d1f",
-  bg_active   = "#ffbd7a",
+  bg_active   = "#f0c674",
   fg_inactive = "#1d1d1f",
   bg_inactive = "#666666"
 }
@@ -43,8 +43,7 @@ end
 function inbox.create(opts)
   opts = opts or {}
   local colors = opts.colors or default_colors
-  local timeout = opts.timeout or 15
-  local term = 'tag:unread AND path:"ygt/Inbox/**"'
+  local timeout = opts.timeout or 10
 
   local HOME = os.getenv("HOME")
   local radius = 2
@@ -60,7 +59,12 @@ function inbox.create(opts)
     return '<span weight="bold" foreground="' .. fg_color .. '">' .. text .. '</span>'
   end
 
-  local text_widget = wibox.widget {
+  local inbox_text_widget = wibox.widget {
+    markup = span(),
+    widget = wibox.widget.textbox
+  }
+
+  local staging_text_widget = wibox.widget {
     markup = span(),
     widget = wibox.widget.textbox
   }
@@ -71,43 +75,71 @@ function inbox.create(opts)
     widget = wibox.widget.imagebox
   }
 
-  local content = wibox.widget {
+  local inbox_content = wibox.widget {
     layout = wibox.layout.fixed.horizontal,
     spacing = 4,
     icon_widget,
-    text_widget
+    inbox_text_widget
   }
 
   local padded_widget = wibox.widget {
-    content,
-    left = 6,
-    right = 6,
+    inbox_content,
+    left = 4,
+    right = 4,
     top = 1,
     bottom = 1,
     widget = wibox.container.margin
   }
 
-  local inbox_widget = wibox.widget {
+  local padded_widget_right = wibox.widget {
+    staging_text_widget,
+    left = 4,
+    right = 4,
+    top = 1,
+    bottom = 1,
+    widget = wibox.container.margin
+  }
+
+  local inbox_widget_left = wibox.widget {
     padded_widget,
-    bg = colors.bg_active,
+    bg = colors.bg_inactive,
     shape = function(cr, width, height)
-      gears.shape.rounded_rect(cr, width, height, radius)
+      gears.shape.partially_rounded_rect(cr, width, height, true, false, false, true, radius)
+    end,
+    widget = wibox.container.background
+  }
+
+  local inbox_widget_right = wibox.widget {
+    padded_widget_right,
+    bg = colors.bg_inactive,
+    shape = function(cr, width, height)
+      gears.shape.partially_rounded_rect(cr, width, height, false, true, true, false, radius)
     end,
     widget = wibox.container.background
   }
 
   local function update()
-    local count = count_by(term)
-    local active = count > 0
+    local countInbox = count_by('tag:unread AND path:"ygt/Inbox/**"')
+    local countAS = count_by('tag:unread AND path:"ygt/Airbrake/Staging/**"')
 
-    local fg_color = active and colors.fg_active or colors.fg_inactive
-    local bg_color = active and colors.bg_active or colors.bg_inactive
+    local activeInbox = countInbox > 0
+    local activeAS = countAS > 0
+
+    local fg_color = activeInbox and colors.fg_active or colors.fg_inactive
+    local bg_color = activeInbox and colors.bg_active or colors.bg_inactive
+    local fg_color_as = activeAS and colors.fg_active or colors.fg_inactive
+    local bg_color_as = activeAS and colors.bg_active or colors.bg_inactive
 
     local icon = gears.color.recolor_image(icon_path, fg_color)
 
-    text_widget.markup = span(tostring(count), fg_color)
-    inbox_widget.bg = bg_color
+    local text = tostring(countInbox)
+
+    inbox_text_widget.markup = span(text, fg_color)
+    inbox_widget_left.bg = bg_color
     icon_widget.image = icon
+
+    inbox_widget_right.bg = bg_color_as
+    staging_text_widget.markup = span(tostring(countAS), fg_color_as)
   end
 
   update()
@@ -119,7 +151,12 @@ function inbox.create(opts)
   }
 
   return wibox.widget {
-    inbox_widget,
+    wibox.widget {
+      layout = wibox.layout.fixed.horizontal,
+      spacing = 1,
+      inbox_widget_left,
+      inbox_widget_right
+    },
     margins = MARGINS,
     widget = wibox.container.margin
   }
