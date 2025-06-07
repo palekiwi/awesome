@@ -9,7 +9,6 @@ function run {
 
 run sxhkd
 
-run claude-desktop
 run nextcloud
 run slack
 
