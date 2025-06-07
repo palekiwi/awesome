@@ -62,5 +62,6 @@ awful.rules.rules = {
   -- Assign clients to tags
   { properties = { screen = 2, tag = "〇" }, rule = { class = "Signal" } },
   { properties = { screen = 2, tag = "〇" }, rule = { class = "Slack" } },
+  { properties = { screen = 2, tag = "七" }, rule = { class = "Claude" } },
   { properties = { screen = 2, tag = "丙" }, rule = { class = "Virt-manager" } },
 }
