@@ -9,7 +9,8 @@ function run {
 
 run sxhkd
 
-run slack
+run claude-desktop
 run nextcloud
+run slack
 
 xmodmap ~/.Xmodmap

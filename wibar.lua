@@ -54,6 +54,7 @@ local function setup_right_widgets()
   local cmus_widget = require('widgets.cmus')
   local capslock = require('widgets.capslock')
   local mic = require('widgets.mic')
+  local inbox = require("widgets.inbox")
 
   local function timeHome(timezone)
     return wibox.layout.margin(
@@ -90,6 +91,7 @@ local function setup_right_widgets()
       spacing = 4,
       capslock,
       mic,
+      inbox.create(),
       myvolume,
       cmus_widget {},
       battery_widget(),
