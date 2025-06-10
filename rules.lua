@@ -3,6 +3,25 @@ local beautiful = require("beautiful")
 local clientkeys = require("clientkeys")
 local clientbuttons = require("clientbuttons")
 
+local function on_second_screen(tag_name)
+  return function(c)
+    local target_screen = screen[2] or screen[1]
+
+    -- Find the tag by name
+    local target_tag = nil
+    for _, tag in ipairs(target_screen.tags) do
+      if tag.name == tag_name then
+        target_tag = tag
+        break
+      end
+    end
+
+    if target_tag then
+      c:move_to_tag(target_tag)
+    end
+  end
+end
+
 awful.rules.rules = {
   -- All clients will match this rule.
   {
@@ -30,7 +49,7 @@ awful.rules.rules = {
         -- "Signal",
       },
       name = {
-        "Event Tester",   -- xev.
+        "Event Tester", -- xev.
       },
       role = {
         -- "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
@@ -55,13 +74,29 @@ awful.rules.rules = {
     rule = { class = "Gcr-prompter" },
     properties = {
       placement = awful.placement.centered + awful.placement.no_overlap +
-      awful.placement.no_offscreen
+          awful.placement.no_offscreen
     }
   },
 
   -- Assign clients to tags
-  { properties = { screen = 2, tag = "〇" }, rule = { class = "Signal" } },
-  { properties = { screen = 2, tag = "〇" }, rule = { class = "Slack" } },
-  { properties = { screen = 2, tag = "七" }, rule = { class = "Claude" } },
-  { properties = { screen = 2, tag = "丙" }, rule = { class = "Virt-manager" } },
+  { callback = on_second_screen("〇"), rule = { class = "Signal" } },
+  { callback = on_second_screen("〇"), rule = { class = "Slack" } },
+  { callback = on_second_screen("七"), rule = { class = "Claude" } },
+  { callback = on_second_screen("丙"), rule = { class = "Virt-manager" } },
+  {
+    rule = { class = "kitty", name = "spabreaks" },
+    properties = { screen = screen[1], tag = screen[1].tags[3] }
+  },
+  {
+    rule = { class = "kitty", name = ".*%-dev$" },
+    properties = { screen = screen[1], tag = screen[1].tags[1] }
+  },
+  {
+    rule = { class = "kitty", name = ".*%-psql$" },
+    properties = { screen = screen[1], tag = "丙" }
+  },
+  {
+    rule = { class = "kitty", name = ".*%-console$" },
+    properties = { screen = screen[1], tag = "丙" }
+  },
 }
