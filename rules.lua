@@ -93,7 +93,7 @@ awful.rules.rules = {
   },
   {
     rule = { class = "kitty", name = "ava%-.*$" },
-    callback = on_second_screen("七"),
+    callback = on_second_screen("九"),
   },
   {
     rule = { class = "kitty", name = ".*%-psql$" },
