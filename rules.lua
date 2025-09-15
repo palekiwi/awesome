@@ -92,7 +92,7 @@ awful.rules.rules = {
     properties = { screen = screen[1], tag = screen[1].tags[1] }
   },
   {
-    rule = { class = "kitty", name = ".*%-agent$" },
+    rule = { class = "kitty", name = "ava%-.*$" },
     callback = on_second_screen("七"),
   },
   {
